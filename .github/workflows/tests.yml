@@ -1,0 +1,50 @@
+name: Tests
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  python-sales-automation:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: python-sales-automation
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install matplotlib pandas pytest
+      - name: Generate test data
+        run: python generate_test_data.py
+      - name: Run main script
+        run: python main.py
+      - name: Run tests
+        run: pytest test_main.py -v
+
+  excel-report-builder:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: excel-report-builder
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install openpyxl pytest
+      - name: Run builder
+        run: python excel_builder.py
+      - name: Run tests
+        run: pytest test_excel_builder.py -v

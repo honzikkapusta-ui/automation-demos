@@ -1,0 +1,107 @@
+# Automation Demos — Python & Excel for Small Business
+
+**EN** | [ČESKY](#česky)
+
+---
+
+## English
+
+Two local demonstrations using synthetic sales data: CSV cleanup and a generated Excel report. They are examples for review, not completed customer integrations.
+
+### 📦 What's Inside
+
+| Demo | Description | Tests | Output |
+|------|-------------|-------|--------|
+| **python-sales-automation** | Reads messy CSV (mixed case, $ prefixes, negative/zero qty, missing fields) → cleans → writes clean CSV + revenue column + KPI summary + bar chart | 9 passing | `clean_sales_report.csv`, `sales_figure.png` |
+| **excel-report-builder** | Creates professional multi-sheet workbook with formulas, pivot tables (SUMIFS/COUNTIFS), KPI dashboard, embedded chart | 7 passing | `monthly_sales_report.xlsx` (3 sheets) |
+
+### 🚀 Quick Start
+
+```bash
+# Demo 1: Python Sales Automation
+cd python-sales-automation
+python generate_test_data.py   # creates sample_raw_sales.csv
+python main.py                 # produces clean_sales_report.csv + sales_figure.png
+pytest test_main.py -v         # 9 tests pass
+
+# Demo 2: Excel Report Builder
+cd ../excel-report-builder
+pip install openpyxl
+python excel_builder.py        # produces monthly_sales_report.xlsx
+pytest test_excel_builder.py -v # 7 tests pass
+```
+
+### 🎯 Use Cases
+
+- **Supplied tabular exports**: CSV cleanup demonstrated on synthetic sales data.
+- **Excel report**: Data, category summaries and a dashboard/chart; formula results require verification in the target spreadsheet application.
+- **Additional integrations**: Shoptet, accounting imports, advertising APIs, PDF/OCR and unattended scheduling are not validated by these demos. Each requires separate scope and testing.
+
+### 🛠 Stack
+
+Python • pandas • openpyxl • matplotlib • pytest. A workflow file is included; successful hosted CI or unattended operation is not claimed.
+
+### 📄 License
+
+MIT — free to use, modify, distribute. Attribution appreciated.
+
+### Portfolio status
+
+No public address is confirmed. Local portfolio files await review; add a real URL only after separate owner approval to publish and a successful deployment check.
+
+---
+
+## ČESKY
+
+Dvě lokální ukázky na syntetických datech: čištění CSV a generovaný Excel report. Nejde o dokončené integrace pro klienty.
+
+### 📦 Co uvnitř
+
+| Demo | Popis | Testy | Výstup |
+|------|-------|-------|--------|
+| **python-sales-automation** | Načte chaotické CSV (míchané velikosti písmen, $ u cen, záporná/nulová množství, chybějící pole) → vyčistí → zapíše čisté CSV + sloupec revenue + KPI souhrn + sloupcový graf | 9 prochází | `clean_sales_report.csv`, `sales_figure.png` |
+| **excel-report-builder** | Vytvoří profesionální vícelistovou Excel s vzorci, pivot tabulkami (SUMIFS/COUNTIFS), KPI dashboardem, vloženým grafem | 7 prochází | `monthly_sales_report.xlsx` (3 listy) |
+
+### 🚀 Rychlý start
+
+```bash
+# Demo 1: Python Sales Automation
+cd python-sales-automation
+python generate_test_data.py   # vytvoří sample_raw_sales.csv
+python main.py                 # vyprodukuje clean_sales_report.csv + sales_figure.png
+pytest test_main.py -v         # 9 testů projde
+
+# Demo 2: Excel Report Builder
+cd ../excel-report-builder
+pip install openpyxl
+python excel_builder.py        # vyprodukuje monthly_sales_report.xlsx
+pytest test_excel_builder.py -v # 7 testů projde
+```
+
+### 🎯 Případy užití
+
+- **Dodané tabulkové exporty**: Čištění CSV a ukázkový prodejní report ze syntetických dat.
+- **Excel report**: Datový list, souhrny kategorií a přehled s grafem. Výpočty musí ověřit cílová tabulková aplikace.
+- **Další integrace**: Shoptet, účetní systémy, reklamní API, PDF/OCR a automatické plánování nejsou těmito dvěma demy ověřené dodávky. Vyžadují samostatné zadání a validaci.
+- **Jakékoliv malé podnikání**: Nahradit ruční copy-paste v Excelu reprodukovatelnými Python pipeliney
+
+### 🛠 Stack
+
+Python • pandas • openpyxl • matplotlib • pytest. Přiložený workflow není důkazem úspěšného hostovaného CI ani bezobslužného provozu.
+
+### 📄 Licence
+
+MIT — volné použití, úpravy, šíření. Úžasné, když uveďte zdroj.
+
+### 🔗 Živé portfolio
+
+Veřejná adresa zatím není potvrzená. Lokální portfolio je připravené k revizi; skutečný odkaz doplní vlastník až po samostatném schválení publikace. Žádné nasazení se tímto README netvrdí.
+
+---
+
+## Contact / Kontakt
+
+**Honza Kapusta** — Python automation & Excel reporting for small businesses  
+**Email**: honzikkapusta@seznam.cz • **GitHub**: [https://github.com/honzikkapusta-ui](https://github.com/honzikkapusta-ui) • **LinkedIn**: [https://www.linkedin.com/in/jan-kapusta-undefined-027380439](https://www.linkedin.com/in/jan-kapusta-undefined-027380439)
+
+*Location: Prague (CET). Available for UTC+1 overlap.*
