@@ -102,6 +102,6 @@ Veřejná adresa zatím není potvrzená. Lokální portfolio je připravené k 
 ## Contact / Kontakt
 
 **Honza Kapusta** — Python automation & Excel reporting for small businesses  
-**Email**: honzikkapusta@seznam.cz • **GitHub**: [https://github.com/honzikkapusta-ui](https://github.com/honzikkapusta-ui) • **LinkedIn**: [https://www.linkedin.com/in/jan-kapusta-undefined-027380439](https://www.linkedin.com/in/jan-kapusta-undefined-027380439)
+**Email**: honzikkapusta@seznam.cz • **GitHub**: [https://github.com/honzikkapusta-ui](https://github.com/honzikkapusta-ui)
 
 *Location: Prague (CET). Available for UTC+1 overlap.*

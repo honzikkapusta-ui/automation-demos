@@ -1,0 +1,507 @@
+<!doctype html>
+<html lang="cs">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Honza Kapusta — Automatizace pro malé firmy</title>
+<meta name="description" content="Python automatizace & Excel reporty pro malé firmy. Čistá data, rychlé reporty, žádná ruční práce."/>
+<style>
+:root{
+  --bg:#0A0C10; --fg:#E8EBF0; --muted:#6B7280; --accent:#22D3EE;
+  --card:#11141A; --border:#1F2937; --code:#161B22;
+  --radius:14px;
+  --shadow:0 10px 30px -10px rgba(0,0,0,.6), 0 2px 8px -4px rgba(0,0,0,.4);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion: reduce){html{scroll-behavior:auto}}
+body{
+  font-family:ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;
+  background:var(--bg);color:var(--fg);line-height:1.65;
+  font-feature-settings:"cv02","cv03","cv04","cv11";
+}
+a{color:var(--accent);text-decoration:none}
+a:hover{text-decoration:underline}
+img{max-width:100%;height:auto}
+.container{max-width:1100px;margin:0 auto;padding:0 24px}
+
+header{
+  padding:100px 0 70px;
+  background:
+    radial-gradient(ellipse 80% 50% at 50% -20%,rgba(34,211,238,.06),transparent),
+    radial-gradient(ellipse 60% 40% at 100% 100%,rgba(34,211,238,.03),transparent);
+}
+header .container{display:grid;gap:32px;align-items:center;grid-template-columns:1fr}
+@media (min-width:900px){header .container{grid-template-columns:1.15fr .85fr}}
+header h1{
+  font-size:clamp(36px,5vw,58px);
+  font-weight:800;letter-spacing:-0.025em;line-height:1.08;
+  color:var(--fg);
+}
+header h1 span{color:var(--accent)}
+header p{
+  font-size:clamp(17px,2vw,20px);
+  color:var(--muted);max-width:55ch;line-height:1.55;
+  font-weight:400;
+}
+.header-actions{display:flex;flex-wrap:wrap;gap:14px;margin-top:6px}
+.btn{
+  display:inline-flex;align-items:center;gap:10px;
+  padding:14px 28px;border-radius:10px;font-weight:600;font-size:.95rem;
+  transition:transform .12s ease,box-shadow .12s ease,background .12s ease;
+  border:1px solid transparent;cursor:pointer;
+}
+.btn:active{transform:scale(.98)}
+.btn-primary{
+  background:linear-gradient(135deg,var(--accent),#06B6D4);
+  color:#081014;box-shadow:var(--shadow);
+}
+.btn-primary:hover{background:linear-gradient(135deg,#67E8F9,#22D3EE);text-decoration:none}
+.btn-ghost{
+  background:transparent;color:var(--fg);
+  border-color:var(--border);
+}
+.btn-ghost:hover{background:rgba(255,255,255,.04);border-color:var(--accent);text-decoration:none}
+
+.badge-row{display:flex;flex-wrap:wrap;gap:8px;margin-top:4px}
+.badge{
+  display:inline-flex;align-items:center;gap:6px;
+  font-size:.68rem;font-weight:600;letter-spacing:.05em;text-transform:uppercase;
+  padding:6px 12px;border-radius:999px;
+  background:rgba(34,211,238,.1);color:var(--accent);
+  border:1px solid rgba(34,211,238,.2);
+}
+
+.hero-visual{
+  aspect-ratio:4/3;border-radius:var(--radius);
+  background:linear-gradient(145deg,var(--card),var(--bg));
+  border:1px solid var(--border);
+  display:flex;align-items:center;justify-content:center;
+  box-shadow:var(--shadow);
+  position:relative;overflow:hidden;
+}
+.hero-visual::before{
+  content:"";position:absolute;inset:0;
+  background:linear-gradient(135deg,rgba(34,211,238,.02),transparent);
+  pointer-events:none;
+}
+.hero-visual-inner{
+  text-align:center;padding:24px;max-width:85%;
+}
+.hero-visual-icon{font-size:2.8rem;margin-bottom:14px;opacity:.9}
+.hero-visual-title{
+  font-weight:600;color:var(--accent);margin-bottom:8px;font-size:.95rem;
+  font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+}
+.hero-visual-desc{
+  font-size:.8rem;color:var(--muted);line-height:1.55;
+}
+
+section{padding:80px 0}
+h2{
+  font-size:clamp(26px,3.2vw,36px);
+  font-weight:700;margin-bottom:8px;letter-spacing:-0.02em;
+  text-align:center;
+  color:var(--fg);
+}
+.section-lead{
+  text-align:center;color:var(--muted);max-width:60ch;margin:0 auto 48px;
+  font-size:1rem;line-height:1.65;
+}
+
+.grid{display:grid;gap:24px}
+.grid-2{grid-template-columns:repeat(auto-fit,minmax(300px,1fr))}
+.grid-3{grid-template-columns:repeat(auto-fit,minmax(260px,1fr))}
+@media (max-width:640px){.grid-2,.grid-3{grid-template-columns:1fr}}
+
+.card{
+  background:var(--card);border:1px solid var(--border);
+  border-radius:var(--radius);padding:32px;
+  transition:border-color .2s ease,box-shadow .2s ease,transform .2s ease;
+}
+.card:hover{
+  border-color:rgba(34,211,238,.3);
+  box-shadow:var(--shadow);
+  transform:translateY(-2px);
+}
+.card h3{font-size:1.1rem;font-weight:700;margin-bottom:10px;color:var(--fg)}
+.card p{color:var(--muted);font-size:.95rem;line-height:1.6}
+
+.before-after{display:grid;gap:16px;margin-top:16px}
+@media (min-width:700px){.before-after{grid-template-columns:1fr 1fr}}
+.before-after > div{position:relative}
+.before-after h4{
+  font-size:.7rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;
+  color:var(--muted);margin-bottom:10px;display:flex;align-items:center;gap:8px;
+}
+.before-after h4::before{
+  content:"";width:8px;height:8px;border-radius:50%;
+  background:currentColor;opacity:.5;
+}
+.col.good h4::before{background:var(--accent);opacity:1}
+.before-after pre{
+  background:var(--code);border:1px solid var(--border);
+  border-radius:10px;padding:18px;font-size:.78rem;line-height:1.55;
+  overflow:auto;max-height:380px;font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+  color:#D1D5DB;white-space:pre-wrap;word-break:break-word;
+}
+.col.bad pre{border-color:rgba(239,68,68,.2)}
+.col.good pre{border-color:rgba(34,211,238,.2)}
+
+.demo-card{position:relative;overflow:hidden}
+.demo-card::before{
+  content:"";position:absolute;inset:0;
+  background:linear-gradient(135deg,rgba(34,211,238,.02),transparent);
+  pointer-events:none;
+}
+.demo-card .code{
+  background:var(--code);border:1px solid var(--border);
+  border-radius:10px;padding:16px;font-size:.8rem;line-height:1.6;
+  font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+  color:#D1D5DB;overflow:auto;
+  margin:16px 0;
+}
+.demo-card .code .comment{color:#6B7280}
+.demo-card .code .cmd{color:var(--accent)}
+.demo-link{
+  display:inline-flex;align-items:center;gap:8px;
+  margin-top:12px;font-weight:600;font-size:.9rem;
+  color:var(--accent);
+}
+.demo-link:hover{text-decoration:none;gap:12px}
+
+.pricing-grid{display:grid;gap:24px;align-items:start}
+@media (min-width:950px){.pricing-grid{grid-template-columns:1fr 1fr 1fr}}
+.pricing-card{
+  background:var(--card);border:1px solid var(--border);
+  border-radius:var(--radius);padding:36px 32px;
+  display:flex;flex-direction:column;
+  transition:border-color .2s ease,box-shadow .2s ease;
+  position:relative;
+}
+.pricing-card:hover{
+  border-color:rgba(34,211,238,.3);
+  box-shadow:var(--shadow);
+}
+.pricing-card.popular{
+  border-color:var(--accent);
+  box-shadow:0 0 0 1px var(--accent), var(--shadow);
+}
+.pricing-card.popular::before{
+  content:"Nejpopulárnější";position:absolute;top:-12px;left:50%;transform:translateX(-50%);
+  font-size:.62rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;
+  background:linear-gradient(135deg,var(--accent),#06B6D4);
+  color:#081014;padding:4px 14px;border-radius:999px;
+}
+.pricing-card h3{font-size:1.05rem;font-weight:600;color:var(--muted);margin-bottom:8px;text-transform:uppercase;letter-spacing:.04em}
+.pricing-card .price{font-size:clamp(2rem,3.5vw,2.8rem);font-weight:800;color:var(--fg);line-height:1.1;margin-bottom:4px}
+.pricing-card .price small{font-size:.42em;font-weight:500;color:var(--muted)}
+.pricing-card .desc{color:var(--muted);font-size:.9rem;margin-bottom:24px;line-height:1.5}
+.pricing-card ul{list-style:none;display:flex;flex-direction:column;gap:12px;margin-bottom:28px;flex:1}
+.pricing-card li{
+  display:flex;align-items:flex-start;gap:10px;
+  font-size:.9rem;color:var(--fg);line-height:1.5;
+}
+.pricing-card li::before{
+  content:"";flex:0 0 18px;height:18px;border-radius:4px;
+  background:linear-gradient(135deg,var(--accent),#06B6D4);
+  mask-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='3'%3E%3Cpolyline points='20 6 9 17 4 12'/%3E%3C/svg%3E");
+  mask-size:14px;mask-repeat:no-repeat;mask-position:center;
+  -webkit-mask-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='3'%3E%3Cpolyline points='20 6 9 17 4 12'/%3E%3C/svg%3E");
+  -webkit-mask-size:14px;-webkit-mask-repeat:no-repeat;-webkit-mask-position:center;
+}
+.btn-block{width:100%;justify-content:center}
+
+.stack-badge{
+  display:inline-flex;align-items:center;gap:6px;
+  font-size:.65rem;font-weight:600;letter-spacing:.05em;text-transform:uppercase;
+  padding:5px 11px;border-radius:999px;
+  background:rgba(168,85,247,.1);color:#A855F7;
+  border:1px solid rgba(168,85,247,.2);
+}
+
+.skill-row{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin-top:10px}
+.skill-row .badge{background:rgba(255,255,255,.05);color:var(--fg);border-color:var(--border)}
+
+footer{
+  padding:50px 0 35px;border-top:1px solid var(--border);
+  background:rgba(17,20,26,.8);
+}
+footer .container{display:grid;gap:16px;text-align:center}
+@media (min-width:700px){footer .container{grid-template-columns:1fr auto 1fr;text-align:left;align-items:center}}
+footer p{color:var(--muted);font-size:.9rem}
+footer a{color:var(--fg);font-weight:500}
+footer a:hover{color:var(--accent)}
+.footer-links{display:flex;flex-wrap:wrap;gap:16px;justify-content:center}
+@media (min-width:700px){.footer-links{justify-content:flex-end}}
+.disclaimer{font-size:.72rem;color:rgba(107,114,128,.65);grid-column:1/-1;text-align:center}
+@media (min-width:700px){.disclaimer{grid-column:1/-1;text-align:center}}
+
+@keyframes fadeUp{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:translateY(0)}}
+.reveal{opacity:0;animation:fadeUp .6s ease forwards}
+header *{animation:fadeUp .7s ease forwards}
+header h1{animation-delay:.05s}
+header p{animation-delay:.12s}
+header .header-actions{animation-delay:.2s}
+header .badge-row{animation-delay:.28s}
+header .hero-visual{animation-delay:.35s}
+section:nth-child(2) .reveal{animation-delay:.08s}
+section:nth-child(3) .reveal{animation-delay:.12s}
+section:nth-child(4) .reveal{animation-delay:.16s}
+section:nth-child(5) .reveal{animation-delay:.2s}
+section:nth-child(6) .reveal{animation-delay:.24s}
+footer .reveal{animation-delay:.28s}
+
+@media (prefers-reduced-motion: reduce){
+  .reveal,.btn,.card,.pricing-card{animation:none!important;opacity:1!important;transform:none!important;transition:none!important}
+}
+
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px;border-radius:4px}
+</style>
+</head>
+<body>
+<header>
+  <div class="container">
+    <div>
+      <h1>Automatizace,<br>co ušetří čas<br><span>a nervy.</span></h1>
+      <p>Python skripty a Excel reporty pro malé firmy. Čistím data, buduji pipeline, odstraňuji ruční kopírování. Všechno lokálně, bez serveru, s testy a dokumentací.</p>
+      <div class="header-actions">
+        <a href="#kontakt" class="btn btn-primary">Začít spolupráci</a>
+        <a href="https://github.com/honzikkapusta-ui" target="_blank" rel="noopener" class="btn btn-ghost">GitHub</a>
+      </div>
+      <div class="badge-row">
+        <span class="badge">Python</span>
+        <span class="badge">pandas</span>
+        <span class="badge">openpyxl</span>
+        <span class="badge">matplotlib</span>
+        <span class="badge">pytest</span>
+        <span class="badge">GitHub Actions</span>
+      </div>
+    </div>
+    <div class="hero-visual">
+      <div class="hero-visual-inner">
+        <div class="hero-visual-icon">📊</div>
+        <div class="hero-visual-title">monthly_sales_report.xlsx</div>
+        <div class="hero-visual-desc">3 sheets · SUMIFS pivots · KPI dashboard · embedded chart · live formulas</div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<section class="container reveal">
+  <h2>Co dělám (a co ne)</h2>
+  <p class="section-lead">Dvě věci dělám dobře. Zbytek je potenciální budoucí rozsah — žádné sliby.</p>
+  <div class="grid grid-3">
+    <article class="card">
+      <h3>Čištění CSV / Excel dat</h3>
+      <p>Nečistý export → čistý vstup pro účetnictví, BI, CRM. Odstranění duplicit, normalizace názvů, měn, množství. 9 testů pokrývajících edge-casy.</p>
+    </article>
+    <article class="card">
+      <h3>Excel reporty z Pythonu</h3>
+      <p>Multi-sheet workbooks s formulami, pivot tabulkami (SUMIFS/COUNTIFS), KPI dashboard a grafy. Žádné VBA, žádné ruční formátování. 7 testů.</p>
+    </article>
+    <article class="card">
+      <span class="stack-badge">Potenciální rozvoj</span>
+      <h3>API integrace (Shoptet, Fakturoid, reklamní systémy)</h3>
+      <p>Stahování objednávek, nahrávání dokladů, synchronizace cen. Vyžaduje dohodu na scope, autentizaci a testovací účet.</p>
+    </article>
+    <article class="card">
+      <span class="stack-badge">Potenciální rozvoj</span>
+      <h3>PDF / OCR extrakce dat</h3>
+      <p>Faktury, bankovní výpisy, smlouvy → strukturovaná data. Presidio / Tesseract / pdfplumber. Požaduje validaci přesnosti.</p>
+    </article>
+    <article class="card">
+      <span class="stack-badge">Potenciální rozvoj</span>
+      <h3>Plánované spouštění (cron, Task Scheduler, GitHub Actions)</h3>
+      <p>Denní/týdenní běhy, monitoring, alerting při chybě. Zero server infra.</p>
+    </article>
+    <article class="card">
+      <span class="stack-badge">Potenciální rozvoj</span>
+      <h3>Dashboardy a vizualizace</h3>
+      <p>Matplotlib / Plotly / Streamlit pro interaktivní pohledy. Pro management review, ne pro veřejnost.</p>
+    </article>
+  </div>
+</section>
+
+<section class="container reveal" style="background:linear-gradient(180deg,transparent,rgba(34,211,238,.02));margin:0 -24px;padding:80px 24px">
+  <h2>Before → After</h2>
+  <p class="section-lead">Syntetické příklady běžných problémů. Žádná klientská data, žádné měřené výsledky.</p>
+  <div class="grid grid-2">
+    <div class="card">
+      <h3>Sales CSV Cleanup</h3>
+      <p style="color:var(--muted);font-size:.9rem;margin-bottom:16px">19 vstupních záznamů: mixed-case názvy, měnové prefixy, záporné množství, chybějící pole.</p>
+      <div class="before-after">
+        <div class="col bad"><h4>Before</h4><pre>date,product,category,region,qty,price,rep,notes
+2024-01-05,Widget Pro,Electronics,West,3,$149.99,Alice Novak,bulk discount
+2024-01-07,Gadget Basic,Electronics,East,7,49.99,bob smith,
+2024-01-10,Service A,Services,North,1,299,Carol White,
+2024-01-12,Widget Pro,Electronics,West,-1,149.99,Alice Novak,RETURN
+2024-01-15,Part X-100,Parts,South,10,9.99,DAVE LEE,
+2024-03-01,Gadget Basic,Electronics,,5,49.99,,missing region</pre></div>
+        <div class="col good"><h4>After</h4><pre>date,product,category,region,qty,price,revenue,rep,notes
+2024-01-05,Widget Pro,Electronics,West,3,149.99,449.97,Alice Novak,bulk discount
+2024-01-07,Gadget Basic,Electronics,East,7,49.99,349.93,Bob Smith,
+2024-01-10,Service Plan A,Services,North,1,299.00,299.00,Carol White,
+2024-01-15,Part X-100,Parts,South,10,9.99,99.90,Dave Lee,
+2024-01-18,Gadget Basic,Electronics,East,7,49.99,349.93,Bob Smith,</pre></div>
+      </div>
+      <p style="margin-top:12px;font-size:.9rem;color:var(--muted)">16/19 syntetických řádků zachováno. Revenue sloupec, souhrn a graf vygenerovány. Pravidla pro reklamace/chybějící data vyžadují samostatnou dohodu.</p>
+    </div>
+    <div class="card">
+      <h3>Monthly Sales Report (Excel)</h3>
+      <p style="color:var(--muted);font-size:.9rem;margin-bottom:16px">16 záznamů vygenerovaných Pythonem. Ukazuje opakovatelné vytváření reportů; žádný klientský výsledek nebo naměřená úspora.</p>
+      <div class="before-after">
+        <div class="col bad"><h4>Before (manuálně)</h4><pre>Copy CSV do Excelu
+Insert sloupec G, =E2*F2, protáhnout
+Data → PivotTable → táhnout Category do Values
+Formátovat jako měna, přidat total row
+Insert → Chart → Bar → formátovat barvy
+Kopírovat graf do "Dashboard" listu
+KPI vzorce psát ručně
+Uložit, poslat mailem</pre></div>
+        <div class="col good"><h4>After (skript)</h4><pre>python excel_builder.py
+
+Otevře monthly_sales_report.xlsx:
+Sheet "Sales Data"    - 16 řádků, auto-filter, revenue formula
+Sheet "By Category"   - SUMIFS/COUNTIFS souhrny, totals
+Sheet "Dashboard"     - 4 KPI karty + živý bar chart
+Přepočet vzorců vyžaduje kompatibilní tabulkový procesor</pre></div>
+      </div>
+      <p style="margin-top:12px;font-size:.9rem;color:var(--muted)">Demo používá vložená syntetická data. Přizpůsobení skutečného exportu vyžaduje dohodu na mapování vstupů a validaci.</p>
+    </div>
+  </div>
+</section>
+
+<section class="container reveal">
+  <h2>Demonstrační projekty</h2>
+  <p class="section-lead">Open-source příklady, které můžeš rozběhat, prozkoumat a přizpůsobit. Vše MIT licence.</p>
+  <div class="grid grid-2">
+    <article class="card demo-card">
+      <h3>Python Sales Automation</h3>
+      <p style="color:var(--muted);margin-bottom:12px">Načte nečistý CSV → vyčistí → zapíše čistý CSV + souhrn + graf. 9 testů.</p>
+      <div class="code"><span class="comment"># vygenerovat testovací data</span>
+python generate_test_data.py
+
+<span class="comment"># spustit cleaner</span>
+python main.py
+
+<span class="comment"># spustit testy</span>
+pytest test_main.py -v</div>
+      <a href="https://github.com/honzikkapusta-ui/automation-demos/tree/main/python-sales-automation" target="_blank" rel="noopener" class="demo-link">Zobrazit kód →</a>
+    </article>
+    <article class="card demo-card">
+      <h3>Excel Report Builder</h3>
+      <p style="color:var(--muted);margin-bottom:12px">Vytvoří profesionální multi-sheet workbook s formulami, pivoty a grafem. 7 testů.</p>
+      <div class="code"><span class="comment"># nainstalovat závislosti</span>
+pip install openpyxl
+
+<span class="comment"># spustit builder</span>
+python excel_builder.py
+
+<span class="comment"># spustit testy</span>
+pytest test_excel_builder.py -v</div>
+      <a href="https://github.com/honzikkapusta-ui/automation-demos/tree/main/excel-report-builder" target="_blank" rel="noopener" class="demo-link">Zobrazit kód →</a>
+    </article>
+  </div>
+</section>
+
+<section class="container reveal">
+  <h2>Jak spolupracujeme</h2>
+  <p class="section-lead">Bez byrokracie. Funguje to takhle:</p>
+  <div class="grid grid-2">
+    <div class="card">
+      <h3>1. Pošleš mi soubor</h3>
+      <p style="color:var(--muted)">CSV, Excel, Google Sheets odkaz, API credentials — co máš.</p>
+    </div>
+    <div class="card">
+      <h3>2. Postavím pipeline</h3>
+      <p style="color:var(--muted)">Python skript, testy, dokumentace. Dostaneš kód + walkthrough video.</p>
+    </div>
+    <div class="card">
+      <h3>3. Spustíš to (nebo já)</h3>
+      <p style="color:var(--muted)">Lokálně, plánovaně (cron/Task Scheduler), nebo GitHub Actions. Žádný server.</p>
+    </div>
+    <div class="card">
+      <h3>4. Dolaďování zahrnuté</h3>
+      <p style="color:var(--muted)">Změní se formát dat? Nový sloupec? Jedna zpráva, aktualizuji skript.</p>
+    </div>
+  </div>
+</section>
+
+<section class="container reveal" style="background:linear-gradient(180deg,transparent,rgba(168,85,247,.02));margin:0 -24px;padding:80px 24px">
+  <h2>Cenové orientace <span style="font-weight:400;color:var(--muted)">(ne nabídka)</span></h2>
+  <p class="section-lead">Rozsahy pro scopovací rozhovory. Finální cena závisí na složitosti dat, frekvenci běhů a míře podpory. <strong>Fakturuji v Kč.</strong></p>
+  <div class="pricing-grid">
+    <div class="pricing-card">
+      <h3>Jednorázová úklid</h3>
+      <div class="price">3,5–9 tis. Kč <small>/ ~150–400 USD</small></div>
+      <p class="desc">Jeden soubor, jednorázový skript, 1–2 dny</p>
+      <ul>
+        <li>Čištění a normalizace dat</li>
+        <li>Výstupní CSV / Excel</li>
+        <li>Základní KPI souhrn</li>
+        <li>Dokumentace + 14 dnů úprav</li>
+      </ul>
+      <a href="#kontakt" class="btn btn-ghost btn-block">Řešit tohle</a>
+    </div>
+    <div class="pricing-card popular">
+      <h3>Opakující se pipeline</h3>
+      <div class="price">7–19 tis. Kč/měs <small>/ ~300–800 USD</small></div>
+      <p class="desc">Denní/týdenní běh, monitoring, aktualizace</p>
+      <ul>
+        <li>Vše z jednorázové</li>
+        <li>Automatické spouštění (cron/GHA)</li>
+        <li>Chybové alerty (email/Slack)</li>
+        <li>Měsíční údržba a drobné změny</li>
+        <li>Prioritní podpora</li>
+      </ul>
+      <a href="#kontakt" class="btn btn-primary btn-block">Rozběhat to</a>
+    </div>
+    <div class="pricing-card">
+      <h3>Šablona / Toolkit</h3>
+      <div class="price">1,1–3,5 tis. Kč <small>/ ~49–149 USD</small></div>
+      <p class="desc">Připravený skript na přizpůsobení, spravuješ sám</p>
+      <ul>
+        <li>Hotový, otestovaný kód</li>
+        <li>Konfigurovatelný config.yaml</li>
+        <li>README + příklady dat</li>
+        <li>Jednorázová nákup, bez předplatného</li>
+        <li>Komunitní podpora (issues)</li>
+      </ul>
+      <a href="#kontakt" class="btn btn-ghost btn-block">Koupit šablonu</a>
+    </div>
+  </div>
+</section>
+
+<section class="container reveal">
+  <h2>Stack</h2>
+  <div class="skill-row">
+    <span class="badge">Python 3.11+</span>
+    <span class="badge">pandas</span>
+    <span class="badge">openpyxl</span>
+    <span class="badge">requests</span>
+    <span class="badge">httpx</span>
+    <span class="badge">beautifulsoup4</span>
+    <span class="badge">playwright</span>
+    <span class="badge">matplotlib</span>
+    <span class="badge">reportlab</span>
+    <span class="badge">pytest</span>
+    <span class="badge">ruff</span>
+    <span class="badge">GitHub Actions</span>
+    <span class="badge">cron / Task Scheduler</span>
+  </div>
+  <p style="margin-top:16px;color:var(--muted);text-align:center">Žádné zbytečné frameworky. Standardní knihovna dřív. Závislosti jen když reálně ušetří čas.</p>
+</section>
+
+<footer id="kontakt">
+  <div class="container">
+    <p class="reveal">Honza Kapusta — Automatizace pro malé firmy</p>
+    <div class="footer-links reveal">
+      <a href="mailto:honzikkapusta@seznam.cz">Email</a>
+      <a href="https://github.com/honzikkapusta-ui" target="_blank" rel="noopener">GitHub</a>
+    </div>
+    <p class="disclaimer reveal">Based in Prague (CET). Available for UTC+1 overlap. All demos use synthetic data. No real client data shown.</p>
+  </div>
+</footer>
+</body>
+</html>
