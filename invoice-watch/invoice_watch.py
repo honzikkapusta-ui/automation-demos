@@ -11,6 +11,7 @@ RED = PatternFill("solid", start_color="F8B4B4")
 ORANGE = PatternFill("solid", start_color="FDE3B0")
 HEADER = Font(bold=True)
 SOON_DAYS = 7
+COLUMNS = ("cislo", "odberatel", "castka", "splatnost", "zaplaceno")
 
 
 def parse_date(text: str) -> date:
@@ -24,21 +25,31 @@ def parse_date(text: str) -> date:
 
 
 def parse_amount(text: str) -> float:
-    return float(text.replace(" ", "").replace("\xa0", "").replace(",", "."))
+    text = text.replace("Kč", "").replace(" ", "").replace("\xa0", "")
+    if "," in text:  # Czech format: 1.234,50 -> thousands dot, decimal comma
+        text = text.replace(".", "").replace(",", ".")
+    return float(text)
 
 
 def load(path: Path) -> list[dict]:
     """Columns: cislo, odberatel, castka, splatnost, zaplaceno (ano/ne)."""
     with open(path, newline="", encoding="utf-8-sig") as f:
+        reader = csv.DictReader(f, delimiter=";")
+        missing = set(COLUMNS) - set(reader.fieldnames or [])
+        if missing:
+            raise ValueError(f"Chybí sloupce: {', '.join(sorted(missing))}")
         rows = []
-        for r in csv.DictReader(f, delimiter=";"):
-            rows.append({
-                "cislo": r["cislo"].strip(),
-                "odberatel": r["odberatel"].strip(),
-                "castka": parse_amount(r["castka"]),
-                "splatnost": parse_date(r["splatnost"]),
-                "zaplaceno": r["zaplaceno"].strip().lower() in ("ano", "yes", "1"),
-            })
+        for line, r in enumerate(reader, start=2):
+            try:
+                rows.append({
+                    "cislo": r["cislo"].strip(),
+                    "odberatel": r["odberatel"].strip(),
+                    "castka": parse_amount(r["castka"]),
+                    "splatnost": parse_date(r["splatnost"]),
+                    "zaplaceno": r["zaplaceno"].strip().lower() in ("ano", "yes", "1"),
+                })
+            except (ValueError, AttributeError) as e:
+                raise ValueError(f"Řádek {line}: {e}") from e
     return rows
 
 
@@ -99,5 +110,9 @@ def build(rows: list[dict], out: Path, today: date) -> dict:
 if __name__ == "__main__":
     src = Path(sys.argv[1]) if len(sys.argv) > 1 else Path(__file__).parent / "sample_faktury.csv"
     dst = Path(sys.argv[2]) if len(sys.argv) > 2 else Path(__file__).parent / "faktury_prehled.xlsx"
-    res = build(load(src), dst, date.today())
-    print(f"Hotovo: {dst}. Po splatnosti {res['po_splatnosti']:,.0f} Kč u {res['dluznici']} odběratelů.")
+    try:
+        res = build(load(src), dst, date.today())
+    except (ValueError, OSError) as e:
+        sys.exit(f"Chyba: {e}")
+    money = f"{res['po_splatnosti']:,.0f}".replace(",", " ")
+    print(f"Hotovo: {dst}. Po splatnosti {money} Kč u {res['dluznici']} odběratelů.")

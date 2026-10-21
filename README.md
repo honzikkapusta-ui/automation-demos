@@ -6,7 +6,7 @@
 
 ## English
 
-Three local demonstrations using synthetic sales data: CSV cleanup, a generated Excel report and an invoice-due tracker. They are examples for review, not completed customer integrations.
+Three local demonstrations using synthetic data: CSV cleanup, a generated Excel report and an invoice-due tracker. They are examples for review, not completed customer integrations.
 
 ### 📦 What's Inside
 
@@ -14,7 +14,7 @@ Three local demonstrations using synthetic sales data: CSV cleanup, a generated 
 |------|-------------|-------|--------|
 | **python-sales-automation** | Reads messy CSV (mixed case, $ prefixes, negative/zero qty, missing fields) → cleans → writes clean CSV + revenue column + KPI summary + bar chart | 9 passing | `clean_sales_report.csv`, `sales_figure.png` |
 | **excel-report-builder** | Creates professional multi-sheet workbook with formulas, pivot tables (SUMIFS/COUNTIFS), KPI dashboard, embedded chart | 7 passing | `monthly_sales_report.xlsx` (3 sheets) |
-| **invoice-watch** | Reads a CSV of invoices → Excel with overdue (red) and due-soon (orange) rows + a debtors sheet | 3 passing | `faktury_prehled.xlsx` |
+| **invoice-watch** | Reads a CSV of invoices → Excel with overdue (red) and due-soon (orange) rows + a debtors sheet | 6 passing | `faktury_prehled.xlsx` |
 
 ### 🚀 Quick Start
 
@@ -30,6 +30,11 @@ cd ../excel-report-builder
 pip install openpyxl
 python excel_builder.py        # produces monthly_sales_report.xlsx
 pytest test_excel_builder.py -v # 7 tests pass
+
+# Demo 3: Invoice Watch
+cd ../invoice-watch
+python invoice_watch.py sample_faktury.csv faktury_prehled.xlsx
+pytest -v                      # 6 tests pass
 ```
 
 ### 🎯 Use Cases
@@ -62,7 +67,7 @@ Tři lokální ukázky na syntetických datech: čištění CSV, generovaný Exc
 |------|-------|-------|--------|
 | **python-sales-automation** | Načte chaotické CSV (míchané velikosti písmen, $ u cen, záporná/nulová množství, chybějící pole) → vyčistí → zapíše čisté CSV + sloupec revenue + KPI souhrn + sloupcový graf | 9 prochází | `clean_sales_report.csv`, `sales_figure.png` |
 | **excel-report-builder** | Vytvoří profesionální vícelistovou Excel s vzorci, pivot tabulkami (SUMIFS/COUNTIFS), KPI dashboardem, vloženým grafem | 7 prochází | `monthly_sales_report.xlsx` (3 listy) |
-| **invoice-watch** | Načte CSV s fakturami → Excel s fakturami po splatnosti (červeně), brzy splatnými (oranžově) a listem dlužníků | 3 prochází | `faktury_prehled.xlsx` |
+| **invoice-watch** | Načte CSV s fakturami → Excel s fakturami po splatnosti (červeně), brzy splatnými (oranžově) a listem dlužníků | 6 prochází | `faktury_prehled.xlsx` |
 
 ### 🚀 Rychlý start
 
@@ -78,14 +83,18 @@ cd ../excel-report-builder
 pip install openpyxl
 python excel_builder.py        # vyprodukuje monthly_sales_report.xlsx
 pytest test_excel_builder.py -v # 7 testů projde
+
+# Demo 3: Invoice Watch
+cd ../invoice-watch
+python invoice_watch.py sample_faktury.csv faktury_prehled.xlsx
+pytest -v                      # 6 testů projde
 ```
 
 ### 🎯 Případy užití
 
 - **Dodané tabulkové exporty**: Čištění CSV a ukázkový prodejní report ze syntetických dat.
 - **Excel report**: Datový list, souhrny kategorií a přehled s grafem. Výpočty musí ověřit cílová tabulková aplikace.
-- **Další integrace**: Shoptet, účetní systémy, reklamní API, PDF/OCR a automatické plánování nejsou těmito dvěma demy ověřené dodávky. Vyžadují samostatné zadání a validaci.
-- **Jakékoliv malé podnikání**: Nahradit ruční copy-paste v Excelu reprodukovatelnými Python pipeliney
+- **Další integrace**: Shoptet, účetní systémy, reklamní API, PDF/OCR a automatické plánování nejsou těmito třemi demy ověřené dodávky. Vyžadují samostatné zadání a validaci.
 
 ### 🛠 Stack
 

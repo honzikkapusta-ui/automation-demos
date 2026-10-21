@@ -222,7 +222,7 @@ footer .reveal{animation-delay:.28s}
   <div class="container">
     <div>
       <h1>Automatizace,<br>co ušetří čas<br><span>a nervy.</span></h1>
-      <p>Python skripty a Excel reporty pro malé firmy. Čistím data, buduji pipeline, odstraňuji ruční kopírování. Všechno lokálně, bez serveru, s testy a dokumentací.</p>
+      <p>Python skripty a Excel reporty pro malé firmy. Čistím data a odstraňuji ruční kopírování. Všechno lokálně, bez serveru, s testy a dokumentací.</p>
       <div class="header-actions">
         <a href="#kontakt" class="btn btn-primary">Začít spolupráci</a>
         <a href="https://github.com/honzikkapusta-ui" target="_blank" rel="noopener" class="btn btn-ghost">GitHub</a>
@@ -265,7 +265,7 @@ footer .reveal{animation-delay:.28s}
     <article class="card">
       <span class="stack-badge">Potenciální rozvoj</span>
       <h3>PDF / OCR extrakce dat</h3>
-      <p>Faktury, bankovní výpisy, smlouvy → strukturovaná data. Presidio / Tesseract / pdfplumber. Požaduje validaci přesnosti.</p>
+      <p>Faktury, bankovní výpisy, smlouvy → strukturovaná data. Zatím neověřeno, vyžaduje samostatné zadání a kontrolu přesnosti.</p>
     </article>
     <article class="card">
       <span class="stack-badge">Potenciální rozvoj</span>
@@ -275,7 +275,7 @@ footer .reveal{animation-delay:.28s}
     <article class="card">
       <span class="stack-badge">Potenciální rozvoj</span>
       <h3>Dashboardy a vizualizace</h3>
-      <p>Matplotlib / Plotly / Streamlit pro interaktivní pohledy. Pro management review, ne pro veřejnost.</p>
+      <p>Grafy z dat (Matplotlib), jako v ukázce prodejní automatizace.</p>
     </article>
   </div>
 </section>
@@ -361,7 +361,7 @@ pytest test_excel_builder.py -v</div>
     </article>
     <article class="card demo-card">
       <h3>Invoice Watch (hlídač faktur)</h3>
-      <p style="color:var(--muted);margin-bottom:12px">Načte CSV s fakturami → Excel, kde jsou faktury po splatnosti červené, brzy splatné oranžové, plus list s dlužníky. Ukázková data, 3 testy.</p>
+      <p style="color:var(--muted);margin-bottom:12px">Načte CSV s fakturami → Excel, kde jsou faktury po splatnosti červené, brzy splatné oranžové, plus list s dlužníky. Ukázková data, 6 testů.</p>
       <div class="code"><span class="comment"># spustit hlídač</span>
 python invoice_watch.py sample_faktury.csv faktury_prehled.xlsx
 
@@ -378,7 +378,7 @@ python -m pytest</div>
   <div class="grid grid-2">
     <div class="card">
       <h3>1. Pošleš mi soubor</h3>
-      <p style="color:var(--muted)">CSV, Excel, Google Sheets odkaz, API credentials — co máš.</p>
+      <p style="color:var(--muted)">CSV, Excel nebo odkaz na Google Sheets. Žádná hesla ani přístupové údaje neposílej.</p>
     </div>
     <div class="card">
       <h3>2. Postavím pipeline</h3>
@@ -386,7 +386,7 @@ python -m pytest</div>
     </div>
     <div class="card">
       <h3>3. Spustíš to (nebo já)</h3>
-      <p style="color:var(--muted)">Lokálně, plánovaně (cron/Task Scheduler), nebo GitHub Actions. Žádný server.</p>
+      <p style="color:var(--muted)">Skript spuštěný lokálně. Žádný server.</p>
     </div>
     <div class="card">
       <h3>4. Změny</h3>
