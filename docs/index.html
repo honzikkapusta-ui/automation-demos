@@ -247,7 +247,7 @@ footer .reveal{animation-delay:.28s}
 
 <section class="container reveal">
   <h2>Co dělám (a co ne)</h2>
-  <p class="section-lead">Dvě věci dělám dobře. Zbytek je potenciální budoucí rozsah — žádné sliby.</p>
+  <p class="section-lead">Tohle dělám dobře. Zbytek je potenciální budoucí rozsah — žádné sliby.</p>
   <div class="grid grid-3">
     <article class="card">
       <h3>Čištění CSV / Excel dat</h3>
@@ -358,6 +358,16 @@ python excel_builder.py
 <span class="comment"># spustit testy</span>
 pytest test_excel_builder.py -v</div>
       <a href="https://github.com/honzikkapusta-ui/automation-demos/tree/master/excel-report-builder" target="_blank" rel="noopener" class="demo-link">Zobrazit kód →</a>
+    </article>
+    <article class="card demo-card">
+      <h3>Invoice Watch (hlídač faktur)</h3>
+      <p style="color:var(--muted);margin-bottom:12px">Načte CSV s fakturami → Excel, kde jsou faktury po splatnosti červené, brzy splatné oranžové, plus list s dlužníky. Ukázková data, 3 testy.</p>
+      <div class="code"><span class="comment"># spustit hlídač</span>
+python invoice_watch.py sample_faktury.csv faktury_prehled.xlsx
+
+<span class="comment"># spustit testy</span>
+python -m pytest</div>
+      <a href="https://github.com/honzikkapusta-ui/automation-demos/tree/master/invoice-watch" target="_blank" rel="noopener" class="demo-link">Zobrazit kód →</a>
     </article>
   </div>
 </section>

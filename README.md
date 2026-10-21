@@ -6,7 +6,7 @@
 
 ## English
 
-Two local demonstrations using synthetic sales data: CSV cleanup and a generated Excel report. They are examples for review, not completed customer integrations.
+Three local demonstrations using synthetic sales data: CSV cleanup, a generated Excel report and an invoice-due tracker. They are examples for review, not completed customer integrations.
 
 ### 📦 What's Inside
 
@@ -14,6 +14,7 @@ Two local demonstrations using synthetic sales data: CSV cleanup and a generated
 |------|-------------|-------|--------|
 | **python-sales-automation** | Reads messy CSV (mixed case, $ prefixes, negative/zero qty, missing fields) → cleans → writes clean CSV + revenue column + KPI summary + bar chart | 9 passing | `clean_sales_report.csv`, `sales_figure.png` |
 | **excel-report-builder** | Creates professional multi-sheet workbook with formulas, pivot tables (SUMIFS/COUNTIFS), KPI dashboard, embedded chart | 7 passing | `monthly_sales_report.xlsx` (3 sheets) |
+| **invoice-watch** | Reads a CSV of invoices → Excel with overdue (red) and due-soon (orange) rows + a debtors sheet | 3 passing | `faktury_prehled.xlsx` |
 
 ### 🚀 Quick Start
 
@@ -45,15 +46,15 @@ Python • pandas • openpyxl • matplotlib • pytest. A workflow file is inc
 
 MIT — free to use, modify, distribute. Attribution appreciated.
 
-### Portfolio status
+### Portfolio
 
-No public address is confirmed. Local portfolio files await review; add a real URL only after separate owner approval to publish and a successful deployment check.
+https://honzikkapusta-ui.github.io/automation-demos/
 
 ---
 
 ## ČESKY
 
-Dvě lokální ukázky na syntetických datech: čištění CSV a generovaný Excel report. Nejde o dokončené integrace pro klienty.
+Tři lokální ukázky na syntetických datech: čištění CSV, generovaný Excel report a hlídač splatnosti faktur. Nejde o dokončené integrace pro klienty.
 
 ### 📦 Co uvnitř
 
@@ -61,6 +62,7 @@ Dvě lokální ukázky na syntetických datech: čištění CSV a generovaný Ex
 |------|-------|-------|--------|
 | **python-sales-automation** | Načte chaotické CSV (míchané velikosti písmen, $ u cen, záporná/nulová množství, chybějící pole) → vyčistí → zapíše čisté CSV + sloupec revenue + KPI souhrn + sloupcový graf | 9 prochází | `clean_sales_report.csv`, `sales_figure.png` |
 | **excel-report-builder** | Vytvoří profesionální vícelistovou Excel s vzorci, pivot tabulkami (SUMIFS/COUNTIFS), KPI dashboardem, vloženým grafem | 7 prochází | `monthly_sales_report.xlsx` (3 listy) |
+| **invoice-watch** | Načte CSV s fakturami → Excel s fakturami po splatnosti (červeně), brzy splatnými (oranžově) a listem dlužníků | 3 prochází | `faktury_prehled.xlsx` |
 
 ### 🚀 Rychlý start
 
@@ -95,7 +97,7 @@ MIT — volné použití, úpravy, šíření. Úžasné, když uveďte zdroj.
 
 ### 🔗 Živé portfolio
 
-Veřejná adresa zatím není potvrzená. Lokální portfolio je připravené k revizi; skutečný odkaz doplní vlastník až po samostatném schválení publikace. Žádné nasazení se tímto README netvrdí.
+https://honzikkapusta-ui.github.io/automation-demos/
 
 ---
 
@@ -104,4 +106,3 @@ Veřejná adresa zatím není potvrzená. Lokální portfolio je připravené k 
 **Honza Kapusta** — Python automation & Excel reporting for small businesses  
 **Email**: honzikkapusta@seznam.cz • **GitHub**: [https://github.com/honzikkapusta-ui](https://github.com/honzikkapusta-ui)
 
-*Location: Prague (CET). Available for UTC+1 overlap.*
