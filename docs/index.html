@@ -369,6 +369,16 @@ python invoice_watch.py sample_faktury.csv faktury_prehled.xlsx
 python -m pytest</div>
       <a href="https://github.com/honzikkapusta-ui/automation-demos/tree/master/invoice-watch" target="_blank" rel="noopener" class="demo-link">Zobrazit kód →</a>
     </article>
+    <article class="card demo-card">
+      <h3>Price Feed (převod ceníku dodavatele)</h3>
+      <p style="color:var(--muted);margin-bottom:12px">Načte CSV s ceníkem dodavatele → spočítá prodejní cenu (marže + DPH), opraví záporný sklad a vytvoří čistý ceník plus seznam problémových řádků. Ukázková data, 6 testů.</p>
+      <div class="code"><span class="comment"># spustit převod (25 = marže v %)</span>
+python price_feed.py sample_dodavatel.csv vystup.csv 25
+
+<span class="comment"># spustit testy</span>
+python -m pytest</div>
+      <a href="https://github.com/honzikkapusta-ui/automation-demos/tree/master/price-feed" target="_blank" rel="noopener" class="demo-link">Zobrazit kód →</a>
+    </article>
   </div>
 </section>
 

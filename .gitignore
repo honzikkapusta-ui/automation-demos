@@ -1,6 +1,7 @@
 # Generated / output files
 *.csv
 !invoice-watch/sample_faktury.csv
+!price-feed/sample_dodavatel.csv
 *.xlsx
 *.png
 *.pyc
